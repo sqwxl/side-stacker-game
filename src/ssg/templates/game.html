@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block body %}
+    <div id="header">
+        <div align='center'>
+            <p>
+                Use this link to share the game
+            </br>
+            <strong>{{ url_for('game', code=game.code, _external=True) }}</strong>
+            <button id="copy-btn">Copy</button>
+        </p>
+        <p>
+            <a href="{{ url_for("index") }}">New Game</a>
+        </p>
+    </div>
+</div>
+<script>
+        document.getElementById("copy-btn").addEventListener("click", async () => await navigator.clipboard.writeText(document.URL))
+</script>
+{% include "board.html" %}
+{% endblock %}

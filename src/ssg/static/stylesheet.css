@@ -1,0 +1,69 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+h1 {
+  font-variant-caps: small-caps;
+}
+
+body,
+.flash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flash {
+  height: 3em;
+  padding: 5em 0;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  margin: auto;
+}
+
+.cell {
+  background: lightgray;
+  border: 1px solid #ccc;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.even {
+    background: crimson;
+  }
+
+  &.odd {
+    background: cornflowerblue;
+  }
+
+  &[data-legal] {
+    cursor: pointer;
+
+    &.highlight-even {
+      &:hover {
+        background: lightpink;
+      }
+    }
+
+    &.highlight-odd {
+      &:hover {
+        background: lightblue;
+      }
+    }
+  }
+}

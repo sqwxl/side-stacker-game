@@ -1,0 +1,28 @@
+<h1 id="status">{{ game.status_message }}</h1>
+<div id="board"
+     class="board"
+     style="width: 100%"
+     hx-ext="ws"
+     ws-connect="{{ game.code }}/ws"
+     hx-swap-oob="innerHTML">
+    {% for row in range(game.board.rows) %}
+        {% for col in range(game.board.cols) %}
+            {% with turn = game.board[row][col], its_my_turn = not game.finished and game.next_player == player.id %}
+                <div id="cell-{{ col }}-{{ row }}"
+                     class="cell {% if turn >= 0 %} {{ 'even' if turn % 2 == 0 else 'odd' }} {% elif its_my_turn %} {{'highlight-even' if game.next_parity == 0 else 'highlight-odd' }}{% endif %}"
+                     data-col="{{ col }}"
+                     data-row="{{ row }}"
+                     data-turn="{{ turn }}"
+                     {% if its_my_turn and game.is_legal_move(col, row) %}data-legal=""  hx-trigger="click" ws-send{% endif %}>
+                </div>
+            {% endwith %}
+        {% endfor %}
+    {% endfor %}
+</div>
+<h1 id="outcome"></h1>
+<script>
+    document.body.addEventListener('htmx:wsConfigSend', event => {
+        const {col, row} = event.target.dataset
+        event.detail.messageBody = JSON.stringify({ action: { name: "play", payload: { col: +col, row: +row } } })
+    })
+</script>

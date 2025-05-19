@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block body %}
+    <h1>🔴 Side-Stacker 🔵</h1>
+    <p align="center">
+        Stack your pieces to the left or right.
+        <br>
+        The first player to get <strong>four-in-row</strong> horizontally, vertically, or diagonally, wins!
+    </p>
+    <div>
+        <form action="/" method="post">
+            <fieldset id="game-style">
+                <legend>Mode</legend>
+                <label>
+                    <div>
+                        <input type="radio" name="game-style" value="local" />
+                        🫵 Local Play
+                    </div>
+                </label>
+                <label>
+                    <div>
+                        <input type="radio" name="game-style" value="remote" />
+                        🧑 Remote Play
+                    </div>
+                </label>
+                <label>
+                    <div>
+                        <input type="radio" name="game-style" value="ai" checked />
+                        🫵 vs 🤖
+                    </div>
+                </label>
+                <label>
+                    <div>
+                        <input type="radio" name="game-style" value="ai-vs-ai" />
+                        🤖 vs 🤖
+                    </div>
+                </label>
+            </fieldset>
+            <fieldset id="difficulty">
+                <legend>AI Level</legend>
+                <div>
+                    <label>
+                        <input type="radio" name="difficulty" value="1" checked />
+                        🌱
+                    </label>
+                    <label>
+                        <input type="radio" name="difficulty" value="2" />
+                        🌶️
+                    </label>
+                    <label>
+                        <input type="radio" name="difficulty" value="3" />
+                        ✨
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset id="color">
+                <legend>Your Color</legend>
+                <div>
+                    <label>
+                        <input type="radio" name="color" value="random" checked />
+                        🎲
+                    </label>
+                    <label>
+                        <input type="radio" name="color" value="red" />
+                        🔴
+                    </label>
+                    <label>
+                        <input type="radio" name="color" value="blue" />
+                        🔵
+                    </label>
+                </div>
+            </fieldset>
+            <button style="width: 100%; margin-top: 1em; font-size: 1em" type=submit>Start game</button>
+        </form>
+    </div>
+{% endblock %}
