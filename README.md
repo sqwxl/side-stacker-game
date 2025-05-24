@@ -49,3 +49,4 @@ Model weights are stored in `artifacts/`
 - [Quart](https://quart.palletsprojects.com/en/latest/index.html): asyncio Python microframework
 - [HTMX](https://htmx.org/): HTML-first frontend library
 - PyTorch
+- SQLite
