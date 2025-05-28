@@ -10,13 +10,13 @@ from ssg.ai.training.simulation import simulate_game
 from ssg.ai.training.nn import StateValueNet
 
 
-NUM_GAMES = 10_000
+NUM_GAMES = 10_000_000
 EPOCHS = 15
 
 
 def main():
     player_A = HeuristicAI
-    player_B = TrainedAI
+    player_B = RandomAI
 
     X: list[list[float]] = []
     y: list[float] = []

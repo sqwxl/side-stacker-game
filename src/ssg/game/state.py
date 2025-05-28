@@ -35,4 +35,4 @@ class GameState:
     def winner_parity(self) -> int | None:
         if self.status != GameStatus.WIN:
             return None
-        return (len(self.turns) + 1) % 2
+        return (len(self.turns) - 1) % 2

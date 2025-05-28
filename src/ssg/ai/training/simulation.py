@@ -26,11 +26,9 @@ def simulate_game(player_0: type[AIPlayer], player_1: type[AIPlayer]):
         # Swap player turn
         current_player = player_1 if current_player == player_0 else player_0
 
-    # Game ended: determine outcome for each state from perspective of the player who was about to move
-    result = state.status  # "win", "draw", or "undecided"
-    winner = (
-        state.engine.board[state.turns[-1]] % 2 if result == GameStatus.WIN else None
-    )
+    # Game ended.
+    # Now we determine outcome for each state from perspective of the player who was about to move
+    result = state.status  # "win" or "draw"
 
     # Assign reward values: +1 for win, -1 for loss, 0 for draw, from each player's perspective
     outcomes: list[float] = []
@@ -38,7 +36,7 @@ def simulate_game(player_0: type[AIPlayer], player_1: type[AIPlayer]):
         parity = i % 2
 
         if result == GameStatus.WIN:
-            outcomes.append(1.0 if parity == winner else -1.0)
+            outcomes.append(1.0 if parity == state.winner_parity else -1.0)
         elif result == GameStatus.DRAW:
             outcomes.append(0.0)
 
@@ -47,7 +45,7 @@ def simulate_game(player_0: type[AIPlayer], player_1: type[AIPlayer]):
 
 def extract_features(state: GameState, parity: int) -> list[float]:
     """
-    Return a COLS*ROWS-length vector with cells encoded as
+    Return a COLSxROWS sized vector with cells encoded as
         +1  piece of the side to move
         -1  opponent piece
          0  empty
@@ -56,7 +54,7 @@ def extract_features(state: GameState, parity: int) -> list[float]:
 
     for row in state.board:
         for val in row:
-            if val == -1:
+            if val == -1:  # i.e., empty cell
                 features.append(0.0)
             else:
                 features.append(1.0 if parity == val % 2 else -1.0)
