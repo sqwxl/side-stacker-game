@@ -10,6 +10,4 @@ RUN pip install --no-cache-dir -e src
 
 EXPOSE 5000
 
-ENV QUART_APP=ssg:app
-
-ENTRYPOINT ["quart", "run", "-h", "0.0.0.0", "-p", "5000"]
+ENTRYPOINT ["hypercorn", "ssg:app", "--bind", "0.0.0.0:5000"]
