@@ -25,7 +25,7 @@ from ssg.models import Game, Player
 from ssg.ws.actions import PlayAction, parse_action
 from ssg.ws.broker import Broker, BrokerHub
 
-app = Quart(__name__, static_folder="./static", static_url_path="/static")
+app = Quart(__name__, static_folder="./static")
 
 app.config["DATABASE"] = Path(app.root_path) / "ssg.db"
 app.secret_key = "not_so_secret_secret"
@@ -77,6 +77,20 @@ async def index():
     game = GameForm(player.id, form).save(g.db)
 
     return redirect(url_for("game", code=game.code))
+
+
+@app.get("/history")
+async def history():
+    token = session.get("token")
+
+    if token is None:
+        return redirect(url_for("index"))
+
+    player = Player.get_or_create(g.db, token)
+
+    games = Game.games_for_player(g.db, player.id)
+
+    return await render_template("history.html", games=games, player=player)
 
 
 @app.get("/<string:code>")

@@ -1,7 +1,7 @@
 from secrets import choice
 from sqlite3 import Connection
 from string import ascii_uppercase
-from typing import Self, override
+from typing import Any, Self, override
 
 
 from ssg.game import GameBoard, GameState, GameStatus
@@ -103,7 +103,7 @@ class Game:
             return "It's a draw!"
         if self.status == GameStatus.WIN:
             color = "🔴" if self.state.winner_parity == 0 else "🔵"
-            return f"{color} wins!"
+            return f"{color} won!"
 
     def is_legal_move(self, col: int, row: int) -> bool:
         if self.finished:
@@ -183,3 +183,22 @@ class Game:
     @staticmethod
     def _gen_code() -> str:
         return "".join(choice(ascii_uppercase) for _ in range(5))
+
+    @classmethod
+    def games_for_player(cls, db: Connection, player_id: int) -> list[Self]:
+        rows = db.execute(
+            "select * from game where player_0_id = ? or player_1_id = ? order by created_on desc",
+            (player_id, player_id),
+        ).fetchall()
+
+        return list(map(lambda r: cls.from_row(db, r), rows))
+
+    @classmethod
+    def from_row(cls, db: Connection, row: Any) -> Self:
+        return cls(
+            db,
+            id=row["id"],
+            code=row["code"],
+            player_0=row["player_0_id"],
+            player_1=row["player_1_id"],
+        )

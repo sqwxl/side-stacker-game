@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" color-mode="user">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,14 +10,23 @@
         <script src="https://unpkg.com/htmx-ext-ws@2.0.2"
                 integrity="sha384-932iIqjARv+Gy0+r6RTGrfCkCKS5MsF539Iqf6Vt8L4YmbnnWI2DSFoMD90bvXd0"
                 crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/gnat/css-scope-inline@main/script.js"></script>
         <link rel="stylesheet"
               href="{{ url_for('static', filename='stylesheet.css') }}">
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     </head>
     <body>
-        {% block body %}{% endblock %}
-        <div id="flash" class="flash">
-            {% for message in get_flashed_messages() %}<p>{{ message }}</p>{% endfor %}
-        </div>
+        <header>
+            {% block header %}
+                <div id="flash">
+                    <style>me { text-align: center; }</style>
+                    {% for message in get_flashed_messages() %}<p>{{ message }}</p>{% endfor %}
+                </div>
+            {% endblock header %}
+        </header>
+        <main>
+            {% block main %}
+            {% endblock main %}
+        </main>
     </body>
 </html>

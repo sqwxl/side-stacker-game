@@ -1,0 +1,9 @@
+<div id="board-{{ game.code }}" class="board">
+    {% for row in range(game.board.rows) %}
+        {% for col in range(game.board.cols) %}
+            {% with turn = game.board[row][col] %}
+                <div class="cell {% if turn >= 0 %} {{ 'even' if turn % 2 == 0 else 'odd' }} {% endif %}"></div>
+            {% endwith %}
+        {% endfor %}
+    {% endfor %}
+</div>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block body %}
+{% block main %}
     <h1>🔴 Side-Stacker 🔵</h1>
     <p align="center">
         Stack your pieces to the left or right.
@@ -7,7 +7,7 @@
         The first player to get <strong>four-in-row</strong> horizontally, vertically, or diagonally, wins!
     </p>
     <div>
-        <form action="/" method="post">
+        <form action="{{ url_for("index") }}" method="post">
             <fieldset id="game-style">
                 <legend>Mode</legend>
                 <label>
@@ -71,5 +71,9 @@
             </fieldset>
             <button style="width: 100%; margin-top: 1em; font-size: 1em" type=submit>Start game</button>
         </form>
+        <hr>
+        <p align="center">
+            <a href="{{ url_for("history") }}">Previous games</a>
+        </p>
     </div>
-{% endblock %}
+{% endblock main %}

@@ -1,28 +1,29 @@
+:root {
+  --even: crimson;
+  --odd: cornflowerblue;
+}
+
 * {
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
+html {
+  font-size: 125%;
 }
 
 h1 {
   font-variant-caps: small-caps;
 }
 
-body,
-.flash {
+header {
+  text-align: center;
+}
+
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.flash {
-  height: 3em;
-  padding: 5em 0;
 }
 
 .board {
@@ -32,7 +33,7 @@ body,
   width: 100%;
   max-width: 400px;
   aspect-ratio: 1;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .cell {

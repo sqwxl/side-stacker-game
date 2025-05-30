@@ -1,5 +1,10 @@
 {% extends "base.html" %}
-{% block body %}
-    {% include "status.html" %}
+{% block header %}
+    {{ super() }}
+    <p>
+        <a href="{{ url_for("index") }}">New Game</a>
+    </p>
+{% endblock header %}
+{% block main %}
     {% include "board.html" %}
-{% endblock %}
+{% endblock main %}
